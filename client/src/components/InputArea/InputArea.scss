@@ -1,0 +1,28 @@
+@import '../../assets/styles/variables';
+
+.input-area {
+    border-radius: 7px;
+    background: $dark;
+    box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.2);
+
+    height: 576px;
+    margin: 14rem 0;
+
+    padding: 3rem 5rem;
+
+    &__heading {
+        font-size: 24px;
+        color: white;
+        text-align: center;
+    }
+
+    &__drop-zone {
+        width: 300px;
+        margin-top: 3rem;
+        border-radius: 7;
+        border-radius: 7px;
+        background: transparent;
+        border: 2px dashed #576574;
+        height: 180px;
+    }
+}
