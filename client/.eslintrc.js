@@ -25,6 +25,8 @@ module.exports = {
     ],
     rules: {
         'prettier/prettier': ['error', {}, { usePrettierrc: true }], // Use our .prettierrc file as source
-        'react/react-in-jsx-scope': 0
+        'react/react-in-jsx-scope': 0,
+        'no-unused-vars': 'warn',
+        'react/prop-types': 'warn'
     }
 };
