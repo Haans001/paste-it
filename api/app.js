@@ -20,9 +20,10 @@ app.use(
     })
 );
 
-app.use('/', fileRoute);
+app.use('/file', fileRoute);
+app.post('/', () => console.log('euch'));
 
-const PORT = 5000;
+const PORT = 5001;
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);

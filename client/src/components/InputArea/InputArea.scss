@@ -9,6 +9,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 
     &__heading {
         font-size: 24px;
@@ -62,5 +63,21 @@
         svg {
             margin-left: 1rem;
         }
+    }
+
+    &__loading-overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        left: 0;
+        top: 0;
+        display: grid;
+        place-items: center;
+    }
+
+    &__loading-icon {
+        width: 70px;
+        height: 70px;
     }
 }
