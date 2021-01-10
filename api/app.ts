@@ -1,14 +1,13 @@
-const express = require('express');
-const logger = require('morgan');
-const cors = require('cors');
-const fileUpload = require('express-fileupload');
-var path = require('path');
-const fileRoute = require('./routes/fileRoute');
+/* eslint import/first: 0 */
+import dotenv from 'dotenv';
+dotenv.config();
+import express from 'express';
+import logger from 'morgan';
+import cors from 'cors';
+import fileUpload from 'express-fileupload';
+import fileRoute from './routes/fileRoute';
 
 const app = express();
-
-const dir = __dirname.replace(/\\/g, '/');
-global._root = path.resolve(dir);
 
 app.use(logger('dev'));
 app.use(cors());
@@ -21,7 +20,6 @@ app.use(
 );
 
 app.use('/file', fileRoute);
-app.post('/', () => console.log('euch'));
 
 const PORT = 5001;
 

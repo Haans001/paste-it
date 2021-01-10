@@ -3,6 +3,7 @@ import { Header } from './components/Header/Header';
 import { InputArea } from './components/InputArea/InputArea';
 
 import './App.scss';
+import FilesView from './components/FilesView/FilesView';
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
             <div className="container wrapper">
                 <div>
                     <InputArea />
+                    <FilesView />
                 </div>
             </div>
         </div>
