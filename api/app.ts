@@ -6,6 +6,7 @@ import logger from 'morgan';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
 import fileRoute from './routes/fileRoute';
+import errorHandler from './utils/errorHandler';
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(
 );
 
 app.use('/file', fileRoute);
+app.use(errorHandler);
 
 const PORT = 5001;
 

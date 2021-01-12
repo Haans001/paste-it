@@ -9,11 +9,13 @@
         "ecmaVersion": 12,
         "sourceType": "module"
     },
-    "plugins": ["@typescript-eslint", "prettier"],
     "rules": {
-        "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
+        "prettier/prettier": ["error", { "usePrettierrc": true }],
+        "plugins": ["@typescript-eslint", "prettier"],
         "indent": "off",
         "no-console": "off",
-        "semi": [2, "always"]
+        "semi": [2, "always"],
+        "implicit-arrow-linebreak": "off",
+        "max-len": "off"
     }
 }

@@ -1,41 +1,65 @@
 import nanoid from '../utils/nanoid';
-import { Bucket } from '@google-cloud/storage';
-import { format } from 'util';
-
+import AWS, { AWSError } from 'aws-sdk';
 import { UploadedFile } from 'express-fileupload';
 
 class FileService {
-    static async uploadFile(file: UploadedFile, storage: Bucket, roomID?: string) {
-        return new Promise((resolve, reject) => {
-            const id = roomID || nanoid();
-            const blob = storage.file(`${id}/${file.name}`);
-            const blobStream = blob.createWriteStream();
-            blobStream.on('error', (err) => {
-                reject(err);
-            });
+    static async uploadFile(file: UploadedFile, s3: AWS.S3, roomID?: string) {
+        const id = roomID || nanoid();
+        console.log(file);
 
-            blobStream.on('finish', () => {
-                const publicUrl = format(
-                    `https://storage.googleapis.com/${storage.name}/${blob.name}`
-                );
-                console.log(publicUrl);
-                resolve(true);
-            });
-
-            blobStream.end(file.data);
-        });
-    }
-
-    static async getFiles(storage: Bucket, roomID: string) {
-        console.log(roomID);
-
-        const [files] = await storage.getFiles({
-            prefix: roomID + '/',
-        });
-
-        const data = files.map((file) => file.publicUrl());
+        const params: AWS.S3.PutObjectRequest = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: `${id}/${file.name}`,
+            Body: file.data,
+            Metadata: {
+                type: file.mimetype,
+            },
+        };
+        const data = await s3.upload(params).promise();
 
         return data;
+    }
+
+    static async getFiles(s3: AWS.S3, roomID: string) {
+        const params: AWS.S3.ListObjectVersionsRequest = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Prefix: roomID + '/',
+        };
+
+        try {
+            const data = await s3.listObjects(params).promise();
+            const files = data.Contents;
+
+            const result = files.map(async (file) => ({
+                key: file.Key,
+                lastModified: file.LastModified,
+                size: file.Size,
+                url: FileService.getFileUrl(file.Key),
+                type: (await s3.getObject({ Bucket: process.env.AWS_BUCKET_NAME, Key: file.Key }).promise()).Metadata.type,
+            }));
+
+            return await Promise.all(result);
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    static getFileUrl(key: string) {
+        const prefix = `https://${process.env.AWS_BUCKET_NAME}.s3.eu-central-1.amazonaws.com`;
+        return `${prefix}/${key}`;
+    }
+
+    static async deleteFile(key: string, s3: AWS.S3) {
+        const params: AWS.S3.DeleteObjectRequest = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: key,
+        };
+
+        try {
+            return await s3.deleteObject(params).promise();
+        } catch (error) {
+            throw error;
+        }
     }
 }
 

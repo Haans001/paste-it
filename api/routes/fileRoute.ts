@@ -1,19 +1,20 @@
 import FileService from '../services/FileService';
 import express from 'express';
-import { storage } from '../config/firebase';
 import { UploadedFile } from 'express-fileupload';
+import s3 from '../config/aws-config';
+import HttpError from '../utils/HttpError';
 
 const router = express.Router();
 
 const MAX_FILE_SIZE = 1024 * 1024 * 2;
 
 /* GET home page. */
-router.post('/upload', async (req, res) => {
+router.post('/upload', async (req, res, next) => {
     const files = req.files;
     const roomID = req.body.room_id;
 
     if (!files) {
-        return res.status(404).json({ message: 'File not found' });
+        return next(new HttpError(404, 'File not found'));
     }
 
     const file = files.target as UploadedFile;
@@ -23,36 +24,44 @@ router.post('/upload', async (req, res) => {
             return res.status(403).json({ message: 'File is too large' });
         } else {
             try {
-                const result = await FileService.uploadFile(file, storage, roomID);
-                console.log(result);
+                const result = await FileService.uploadFile(file, s3, roomID);
             } catch (error) {
                 console.error(error);
-                return res.status(403).json({ message: 'There was a problem with your file' });
+                return next(new HttpError(error.code, 'There was a problem with your file'));
             }
 
             return res.status(200).json({ message: 'success' });
         }
     } else {
-        return res.status(403).json({ message: 'There was a problem with your file' });
+        return next(new HttpError(403, 'There was a problem with your file'));
     }
 });
 
-router.get('/get/:room_id', async (req, res) => {
+router.get('/get/:room_id', async (req, res, next) => {
     const roomID = req.params.room_id;
     try {
-        const data = await FileService.getFiles(storage, roomID);
+        const data = await FileService.getFiles(s3, roomID);
         return res.status(200).json({ message: 'success', data });
     } catch (error) {
         console.log(error);
-        return res.status(403).json({ message: 'There was a problem with your file' });
+        return next(new HttpError(403, 'There was a problem with your file'));
     }
 });
 
-router.post('/delete', async (req, res) => {
-    const roomID = req.body.room_id;
-    console.log(roomID);
+router.delete('/delete/:key?', async (req, res, next) => {
+    const key = req.query.key as string;
 
-    return res.status(200).json({ message: 'success' });
+    if (!key) {
+        return next(new HttpError(404, 'Enter valid file name'));
+    }
+
+    try {
+        const data = await FileService.deleteFile(key, s3);
+        return res.status(200).json({ message: 'success', data: data });
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(403, 'Enter Occured'));
+    }
 });
 
 export default router;
