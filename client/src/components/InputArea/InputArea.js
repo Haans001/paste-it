@@ -1,18 +1,18 @@
+/* eslint-disable no-unreachable */
 import { useRef, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { DropZone } from '../DropZone/DropZone';
 import { useSnackbar } from 'notistack';
 import axios from 'axios';
-import Fade from '../../utils/Fade';
-
 import { ReactComponent as FileIcon } from '../../assets/icons/file.svg';
-import './InputArea.scss';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Fade } from '@material-ui/core';
+import { useParams } from 'react-router-dom';
 
-export const InputArea = () => {
+import './InputArea.scss';
+export const InputArea = ({ onUpload, ...props }) => {
     const input = useRef(null);
-    const { enqueueSnackbar } = useSnackbar();
     const [isLoading, setLoading] = useState(false);
+    const { enqueueSnackbar } = useSnackbar();
+    const { roomID } = useParams();
 
     const handleClick = () => {
         input.current.click();
@@ -24,6 +24,10 @@ export const InputArea = () => {
         const formData = new FormData();
         formData.append('target', file);
 
+        if (roomID) {
+            formData.append('room_id', roomID);
+        }
+
         try {
             setLoading(true);
             const response = await axios.post('/file/upload', formData, {
@@ -32,8 +36,9 @@ export const InputArea = () => {
                 }
             });
             setLoading(false);
+            onUpload(response);
         } catch (error) {
-            const message = error.response.data.message;
+            const message = error.response.data.message || 'Server Error';
             enqueueSnackbar(message, { variant: 'error' });
             setLoading(false);
         }
@@ -49,7 +54,7 @@ export const InputArea = () => {
     }, []);
 
     return (
-        <div className="input-area">
+        <div className="input-area__content" {...props}>
             <h3 className="input-area__heading">Upload file</h3>
             <DropZone handleFileUpload={handleFileUpload} />
             <div className="input-area__divider">or</div>

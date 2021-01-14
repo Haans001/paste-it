@@ -1,0 +1,49 @@
+@import '../../assets/styles/variables';
+
+.file {
+    width: 100%;
+    margin-bottom: 3.5rem;
+
+    &__author {
+        color: $gray;
+
+        span {
+            color: $red;
+            font-weight: 700;
+        }
+    }
+
+    &__content {
+        background: $dark;
+        box-shadow: $shadow;
+        border-radius: 7px;
+        padding: 2rem 3rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .content {
+        &__title {
+            font-weight: 500;
+            color: $gray;
+            font-size: 20px;
+        }
+
+        &__download-link {
+            margin-left: auto;
+            height: 52px;
+        }
+
+        &__icon {
+            width: 26px;
+            margin: 0 1rem;
+
+            &--download {
+                fill: $green;
+            }
+            &--delete {
+                fill: $red;
+            }
+        }
+    }
+}

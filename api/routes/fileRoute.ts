@@ -13,6 +13,8 @@ router.post('/upload', async (req, res, next) => {
     const files = req.files;
     const roomID = req.body.room_id;
 
+    console.log(roomID);
+
     if (!files) {
         return next(new HttpError(404, 'File not found'));
     }
@@ -24,13 +26,12 @@ router.post('/upload', async (req, res, next) => {
             return res.status(403).json({ message: 'File is too large' });
         } else {
             try {
-                const result = await FileService.uploadFile(file, s3, roomID);
+                const { data, id } = await FileService.uploadFile(file, s3, roomID);
+                return res.status(200).json({ message: 'success', data, id });
             } catch (error) {
                 console.error(error);
                 return next(new HttpError(error.code, 'There was a problem with your file'));
             }
-
-            return res.status(200).json({ message: 'success' });
         }
     } else {
         return next(new HttpError(403, 'There was a problem with your file'));

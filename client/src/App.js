@@ -1,22 +1,29 @@
 import { Helmet } from 'react-helmet';
 import { Header } from './components/Header/Header';
-import { InputArea } from './components/InputArea/InputArea';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import FilesView from './views/FilesView/FilesView';
 
 import './App.scss';
-import FilesView from './components/FilesView/FilesView';
+import HomeView from './views/HomeView/HomeView';
 
 function App() {
     return (
-        <div className="App">
-            <Helmet />
-            <Header />
-            <div className="container wrapper">
-                <div>
-                    <InputArea />
-                    <FilesView />
+        <Router>
+            <div className="App">
+                <Helmet />
+                <Header />
+                <div className="container wrapper">
+                    <Switch>
+                        <Route exact path="/">
+                            <HomeView />
+                        </Route>
+                        <Route path="/:roomID">
+                            <FilesView />
+                        </Route>
+                    </Switch>
                 </div>
             </div>
-        </div>
+        </Router>
     );
 }
 

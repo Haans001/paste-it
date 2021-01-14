@@ -1,0 +1,8 @@
+.input-area-container {
+    display: flex;
+    justify-content: center;
+
+    @media screen and (min-height: 1200px) {
+        margin-top: 5rem;
+    }
+}

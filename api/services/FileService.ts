@@ -17,7 +17,7 @@ class FileService {
         };
         const data = await s3.upload(params).promise();
 
-        return data;
+        return { data, id };
     }
 
     static async getFiles(s3: AWS.S3, roomID: string) {
@@ -32,6 +32,7 @@ class FileService {
 
             const result = files.map(async (file) => ({
                 key: file.Key,
+                name: file.Key.split('/')[1],
                 lastModified: file.LastModified,
                 size: file.Size,
                 url: FileService.getFileUrl(file.Key),
