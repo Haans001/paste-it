@@ -3,7 +3,7 @@ import AWS, { AWSError } from 'aws-sdk';
 import { UploadedFile } from 'express-fileupload';
 
 class FileService {
-    static async uploadFile(file: UploadedFile, s3: AWS.S3, roomID?: string) {
+    static async uploadFile(file: UploadedFile, date: string, s3: AWS.S3, roomID?: string) {
         const id = roomID || nanoid();
         console.log(file);
 
@@ -13,6 +13,7 @@ class FileService {
             Body: file.data,
             Metadata: {
                 type: file.mimetype,
+                uploadDate: date,
             },
         };
         const data = await s3.upload(params).promise();
@@ -30,16 +31,31 @@ class FileService {
             const data = await s3.listObjects(params).promise();
             const files = data.Contents;
 
-            const result = files.map(async (file) => ({
-                key: file.Key,
-                name: file.Key.split('/')[1],
-                lastModified: file.LastModified,
-                size: file.Size,
-                url: FileService.getFileUrl(file.Key),
-                type: (await s3.getObject({ Bucket: process.env.AWS_BUCKET_NAME, Key: file.Key }).promise()).Metadata.type,
-            }));
+            const result = files.map(async (file) => {
+                const obj = await s3.getObject({ Bucket: process.env.AWS_BUCKET_NAME, Key: file.Key }).promise();
+                const type = obj.Metadata.type;
+                const uploadDate = obj.Metadata.uploadDate;
 
-            return await Promise.all(result);
+                return {
+                    key: file.Key,
+                    name: file.Key.split('/')[1],
+                    uploadDate,
+                    size: file.Size,
+                    url: FileService.getFileUrl(file.Key),
+                    type: type,
+                };
+            });
+
+            const objects = await Promise.all(result);
+
+            objects.sort((a, b) => {
+                const aDate = new Date(a.uploadDate) as any;
+                const bDate = new Date(b.uploadDate) as any;
+
+                return bDate - aDate;
+            });
+
+            return objects;
         } catch (error) {
             throw error;
         }

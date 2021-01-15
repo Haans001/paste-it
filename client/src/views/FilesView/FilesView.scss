@@ -1,6 +1,8 @@
 @import '../../assets/styles/variables';
 
 .files-view {
+    padding-bottom: 10rem;
+
     &__add-file-button {
         box-shadow: $shadow;
         border-radius: 1000px;

@@ -10,6 +10,7 @@ import { Modal, makeStyles, CircularProgress } from '@material-ui/core';
 import { InputArea } from '../../components/InputArea/InputArea';
 
 import './FilesView.scss';
+import usePasteEvent from '../../hooks/usePasteEvent';
 
 const useStyles = makeStyles(() => ({
     modal: {
@@ -38,6 +39,8 @@ const FilesView = () => {
         await getData();
         handleClose();
     };
+
+    usePasteEvent(handleUpload);
 
     const getData = async () => {
         try {

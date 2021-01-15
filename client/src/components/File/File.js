@@ -10,9 +10,6 @@ const File = ({ url, fileName, ...props }) => {
     return (
         <Fade in={true} timeout={500}>
             <div className="file" {...props}>
-                <p className="file__author">
-                    Posted by <span>Anonymous</span>
-                </p>
                 <div className="file__content">
                     <p className="content__title">{fileName}</p>
                     <a href={url} download className="content__download-link">

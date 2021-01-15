@@ -12,6 +12,7 @@ const MAX_FILE_SIZE = 1024 * 1024 * 2;
 router.post('/upload', async (req, res, next) => {
     const files = req.files;
     const roomID = req.body.room_id;
+    const date = req.body.date;
 
     console.log(roomID);
 
@@ -26,7 +27,7 @@ router.post('/upload', async (req, res, next) => {
             return res.status(403).json({ message: 'File is too large' });
         } else {
             try {
-                const { data, id } = await FileService.uploadFile(file, s3, roomID);
+                const { data, id } = await FileService.uploadFile(file, date, s3, roomID);
                 return res.status(200).json({ message: 'success', data, id });
             } catch (error) {
                 console.error(error);
