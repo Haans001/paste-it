@@ -3,22 +3,21 @@ import express from 'express';
 import { UploadedFile } from 'express-fileupload';
 import s3 from '../config/aws-config';
 import HttpError from '../utils/HttpError';
+import upload from '../config/multer';
 
 const router = express.Router();
 
 const MAX_FILE_SIZE = 1024 * 1024 * 2;
 
 /* GET home page. */
-router.post('/upload', async (req, res, next) => {
-    const files = req.files;
+router.post('/upload', upload.single('target'), async (req, res, next) => {
+    const file = req.file;
     const roomID = req.body.room_id;
     const date = req.body.date;
 
-    if (!files) {
+    if (!file) {
         return next(new HttpError(404, 'File not found'));
     }
-
-    const file = files.target as UploadedFile;
 
     if (file) {
         if (file.size > MAX_FILE_SIZE) {
