@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { SnackbarProvider as NotistackSnackbarProvider } from 'notistack';
 
@@ -27,6 +27,10 @@ const SnackbarProvider = ({ children }) => {
             {children}
         </NotistackSnackbarProvider>
     );
+};
+
+SnackbarProvider.propTypes = {
+    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired
 };
 
 export default SnackbarProvider;

@@ -1,7 +1,6 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef } from 'react';
+import PropTypes from 'prop-types';
 import { DropZone } from '../DropZone/DropZone';
-import { useSnackbar } from 'notistack';
-import axios from 'axios';
 import { ReactComponent as FileIcon } from '../../assets/icons/file.svg';
 import { CircularProgress, Fade } from '@material-ui/core';
 
@@ -38,4 +37,8 @@ export const InputArea = ({ onUpload, ...props }) => {
             </Fade>
         </div>
     );
+};
+
+InputArea.propTypes = {
+    onUpload: PropTypes.func
 };

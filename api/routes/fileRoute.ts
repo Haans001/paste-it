@@ -14,8 +14,6 @@ router.post('/upload', async (req, res, next) => {
     const roomID = req.body.room_id;
     const date = req.body.date;
 
-    console.log(roomID);
-
     if (!files) {
         return next(new HttpError(404, 'File not found'));
     }

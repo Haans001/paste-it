@@ -1,15 +1,17 @@
 @import '../../assets/styles/variables';
 
-.image {
-    border-radius: 7px;
+.video {
     width: 100%;
-    overflow: hidden;
-    box-shadow: $shadow;
-    position: relative;
+    display: flex;
+    justify-content: center;
+
+    &__content-wrapper {
+        position: relative;
+    }
 
     &__content {
-        width: 100%;
         min-height: 240px;
+        box-shadow: $shadow;
     }
 
     &__download-button {
@@ -29,7 +31,7 @@
         place-items: center;
     }
 
-    &:hover &__download-button {
+    &__content-wrapper:hover &__download-button {
         opacity: 1;
     }
 

@@ -22,17 +22,18 @@ const useFileUpload = (onUpload, onError) => {
             setLoading(true);
             const response = await axios.post('/file/upload', formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    'access-control-allow-origin': '*'
                 }
             });
             setLoading(false);
-            if (onUpload) onUpload(response);
 
-            console.log('uploaded');
+            if (onUpload) onUpload(response);
 
             return response;
         } catch (error) {
-            const message = 'Server Error';
+            const message = error.response ? error.response.data.message : 'Server Error';
+            console.log(error.response);
             enqueueSnackbar(message, { variant: 'error' });
             setLoading(false);
             if (onError) onError(error);

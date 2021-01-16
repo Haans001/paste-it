@@ -1,7 +1,6 @@
 import React from 'react';
 import { InputArea } from '../../components/InputArea/InputArea';
 import { useHistory } from 'react-router-dom';
-import PasteEventHandler from '../../hooks/usePasteEvent';
 
 import './HomeView.scss';
 import usePasteEvent from '../../hooks/usePasteEvent';

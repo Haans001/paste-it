@@ -1,5 +1,5 @@
-import nanoid from '../utils/nanoid';
-import AWS, { AWSError } from 'aws-sdk';
+import nanoid from '../config/nanoid';
+import AWS from 'aws-sdk';
 import { UploadedFile } from 'express-fileupload';
 
 class FileService {
