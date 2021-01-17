@@ -4,7 +4,6 @@ dotenv.config();
 import express from 'express';
 import logger from 'morgan';
 import cors from 'cors';
-import fileUpload from 'express-fileupload';
 import fileRoute from './routes/fileRoute';
 import errorHandler from './utils/errorHandler';
 

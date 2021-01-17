@@ -2,7 +2,7 @@ import nanoid from '../config/nanoid';
 import AWS from 'aws-sdk';
 
 class FileService {
-    static async uploadFile(file: Express.Multer.File, date: string, s3: AWS.S3, roomID?: string) {
+    static async uploadFile(file: Express.Multer.File, date: string, s3: AWS.S3, nanoid: () => string, roomID?: string) {
         const id = roomID || nanoid();
         console.log(file);
 
