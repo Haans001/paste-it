@@ -20,6 +20,8 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       - name: Build React App
         run: cd client && npm install && CI='' npm run build
+        env: 
+          REACT_APP_PRODUCTION_API_PROXY_URL: https://paste-itx.herokuapp.com
       - name: List files
         run: ls -l  
       - name: Deploy app build to S3 bucket
