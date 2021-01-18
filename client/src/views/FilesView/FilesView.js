@@ -57,7 +57,6 @@ const FilesView = () => {
 
     return (
         <div className="files-view">
-            <h1 style={{ color: 'white' }}>Hello in room {roomID}</h1>
             {data ? (
                 <>
                     <FileList data={data} />

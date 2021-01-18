@@ -1,12 +1,10 @@
 {
-    "name": "paste-it-api",
+    "name": "api",
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "dev": "nodemon app.ts",
-        "start": "ts-node app.ts",
-        "test": "jest",
-        "build": "tsc"
+        "start": "nodemon app.ts",
+        "test": "jest"
     },
     "dependencies": {
         "aws-sdk": "^2.824.0",

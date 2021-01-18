@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import FileService from '../services/FileService';
 import HttpError from '../utils/HttpError';
 import s3 from '../config/aws-config';
+import nanoid from '../config/nanoid';
 
 class FileController {
     public static async upload(req: Request, res: Response, next: NextFunction) {
@@ -14,7 +15,7 @@ class FileController {
         }
 
         try {
-            const { data, id } = await FileService.uploadFile(file, date, s3, roomID);
+            const { data, id } = await FileService.uploadFile(file, s3, nanoid, date, roomID);
             return res.status(200).json({ message: 'success', data, id });
         } catch (error) {
             console.error(error);

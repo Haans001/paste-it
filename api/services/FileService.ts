@@ -1,23 +1,26 @@
-import nanoid from '../config/nanoid';
-import AWS from 'aws-sdk';
+import { S3 } from 'aws-sdk';
 
 class FileService {
-    static async uploadFile(file: Express.Multer.File, date: string, s3: AWS.S3, nanoid: () => string, roomID?: string) {
+    static async uploadFile(file: Express.Multer.File, s3: S3, nanoid: () => string, date: string, roomID?: string) {
         const id = roomID || nanoid();
-        console.log(file);
+        const key = `${id}/${file.originalname}`;
 
         const params: AWS.S3.PutObjectRequest = {
             Bucket: process.env.AWS_BUCKET_NAME,
-            Key: `${id}/${file.originalname}`,
+            Key: key,
             Body: file.buffer,
             Metadata: {
                 type: file.mimetype,
                 uploadDate: date || new Date().toUTCString(),
             },
         };
-        const data = await s3.upload(params).promise();
 
-        return { data, id };
+        try {
+            const data = await s3.upload(params).promise();
+            return { data, id };
+        } catch (error) {
+            throw error;
+        }
     }
 
     static async getFiles(s3: AWS.S3, roomID: string) {

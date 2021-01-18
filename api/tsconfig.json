@@ -7,6 +7,9 @@
         "esModuleInterop": true,
         "allowJs": true,
         "strict": false,
-        "resolveJsonModule": true
-    }
+        "resolveJsonModule": true,
+        "baseUrl": "."
+    },
+    "exclude": ["test", "src/tests", "node_modules", "jest.config.js", "build"],
+    "include": ["package.json"]
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ReactComponent as DeleteIcon } from '../../assets/icons/delete-icon.svg';
 import { ReactComponent as DownloadIcon } from '../../assets/icons/download-icon.svg';
 
 import './File.scss';
@@ -15,7 +14,6 @@ const File = ({ url, fileName, ...props }) => {
                     <a href={url} download className="content__download-link">
                         <DownloadIcon className="content__icon content__icon--download" />
                     </a>
-                    <DeleteIcon className="content__icon content__icon--delete" />
                 </div>
             </div>
         </Fade>
