@@ -19,6 +19,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
       - name: Build React App
-        run: cd client && CI='' npm install && npm run build
+        run: CI=false cd client && npm install && npm run build
       - name: Deploy app build to S3 bucket
         run: aws s3 sync ./build/ s3://paste-it --delete
