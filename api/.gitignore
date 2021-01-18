@@ -1,4 +1,4 @@
 /node_modules
 /build
 .env
-/api/package-lock.json
+package-lock.json
