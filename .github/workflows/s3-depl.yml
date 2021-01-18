@@ -20,5 +20,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       - name: Build React App
         run: cd client && npm install && CI='' npm run build
+      - name: List files
+        run: ls -l  
       - name: Deploy app build to S3 bucket
         run: aws s3 sync build/ s3://paste-it --delete
