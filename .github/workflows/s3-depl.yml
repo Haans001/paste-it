@@ -23,4 +23,4 @@ jobs:
       - name: List files
         run: ls -l  
       - name: Deploy app build to S3 bucket
-        run: aws s3 sync ./build/ s3://paste-it --delete
+        run: aws s3 sync ./client/build/ s3://paste-it --delete
