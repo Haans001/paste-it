@@ -17,10 +17,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/file', fileRoute);
 app.use(errorHandler);
 
-const PORT = 5001 || process.env.PORT;
-
-app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
+const server = app.listen(process.env.PORT || 5001, () => {
+    console.log(`Server is running`);
 });
 
 module.exports = app;
