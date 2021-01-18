@@ -24,9 +24,10 @@ module.exports = {
         'plugin:prettier/recommended' // Make this the last element so prettier config overrides other formatting rules
     ],
     rules: {
-        'prettier/prettier': ['error', {}, { usePrettierrc: true }], // Use our .prettierrc file as source
+        'prettier/prettier': ['warn', { endOfLine: 'auto' }, { usePrettierrc: true }], // Use our .prettierrc file as source
         'react/react-in-jsx-scope': 0,
         'no-unused-vars': 'warn',
-        'react/prop-types': 'warn'
+        'react/prop-types': 'warn',
+        indent: 0
     }
 };

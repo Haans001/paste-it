@@ -8,6 +8,7 @@
         "@testing-library/react": "^11.1.0",
         "@testing-library/user-event": "^12.1.10",
         "axios": "^0.21.1",
+        "http-proxy-middleware": "^1.0.6",
         "nanoid": "^3.1.20",
         "node-sass": "^4.14.1",
         "notistack": "^1.0.3",
@@ -52,6 +53,5 @@
         "eslint-plugin-react": "^7.21.5",
         "eslint-plugin-react-hooks": "^4.2.0",
         "prettier": "^2.2.1"
-    },
-    "proxy": "http://localhost:5001"
+    }
 }

@@ -1,4 +1,5 @@
 import { ReactComponent as DownloadIcon } from '../../assets/icons/download-icon.svg';
+import PropTypes from 'prop-types';
 
 import './Video.scss';
 
@@ -16,6 +17,11 @@ const Video = ({ url, fileName }) => {
             </div>
         </div>
     );
+};
+
+Video.propTypes = {
+    url: PropTypes.string.isRequired,
+    fileName: PropTypes.string.isRequired
 };
 
 export default Video;

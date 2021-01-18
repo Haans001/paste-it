@@ -1,7 +1,7 @@
 /* eslint-disable no-unreachable */
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../utils/axios';
 import { useSnackbar } from 'notistack';
 
 const useFileUpload = (onUpload, onError) => {

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../utils/axios';
 import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
