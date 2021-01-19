@@ -3,13 +3,18 @@
 .image {
     border-radius: 7px;
     width: 100%;
-    overflow: hidden;
-    box-shadow: $shadow;
-    position: relative;
+    display: flex;
+    justify-content: center;
 
     &__content {
+        box-shadow: $shadow;
         width: 100%;
         min-height: 240px;
+    }
+
+    &__content-wrapper {
+        position: relative;
+        max-width: 100%;
     }
 
     &__download-button {
