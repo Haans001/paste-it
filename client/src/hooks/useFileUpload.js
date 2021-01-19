@@ -27,7 +27,7 @@ const useFileUpload = (onUpload, onError) => {
                 }
             });
             setLoading(false);
-
+            enqueueSnackbar('Image uploaded sucessfully', { variant: 'success' });
             if (onUpload) onUpload(response);
 
             return response;

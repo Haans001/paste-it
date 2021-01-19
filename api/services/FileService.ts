@@ -36,7 +36,7 @@ class FileService {
             const result = files.map(async (file) => {
                 const obj = await s3.getObject({ Bucket: process.env.AWS_BUCKET_NAME, Key: file.Key }).promise();
                 const type = obj.Metadata.type;
-                const uploadDate = obj.Metadata.uploadDate;
+                const uploadDate = obj.Metadata.uploaddate;
 
                 return {
                     key: file.Key,
@@ -54,7 +54,7 @@ class FileService {
                 const aDate = new Date(a.uploadDate) as any;
                 const bDate = new Date(b.uploadDate) as any;
 
-                return bDate - aDate;
+                return aDate - bDate;
             });
 
             return objects;

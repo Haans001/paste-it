@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { SnackbarProvider as NotistackSnackbarProvider } from 'notistack';
 
 const styles = {
-    success: { fontSize: '1.4rem' },
-    error: { fontSize: '1.4rem' },
+    success: { fontSize: '1.4rem', backgroundColor: '#27ae60 !important' },
+    error: { fontSize: '1.4rem', backgroundColor: '#ee5253 !important' },
     warning: { fontSize: '1.4rem' },
     info: { fontSize: '1.4rem' }
 };

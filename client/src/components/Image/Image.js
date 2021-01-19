@@ -6,10 +6,12 @@ import './Image.scss';
 const Image = ({ url, fileName }) => {
     return (
         <div className="image">
-            <img src={url} alt={fileName} className="image__content" />
-            <a className="image__download-button" href={url} download>
-                <DownloadIcon className="image__download-icon" />
-            </a>
+            <div className="image__content-wrapper">
+                <img src={url} alt={fileName} className="image__content" />
+                <a className="image__download-button" href={url} download>
+                    <DownloadIcon className="image__download-icon" />
+                </a>
+            </div>
         </div>
     );
 };

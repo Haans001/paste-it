@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/mouse-events-have-key-events */
 import React from 'react';
 import { InputArea } from '../../components/InputArea/InputArea';
 import { useHistory } from 'react-router-dom';
+import usePasteEvent from '../../hooks/usePasteEvent';
 
 import './HomeView.scss';
-import usePasteEvent from '../../hooks/usePasteEvent';
 
 const MainPage = () => {
     const history = useHistory();
