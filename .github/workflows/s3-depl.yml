@@ -3,7 +3,7 @@
 name: s3-depl
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
@@ -25,4 +25,4 @@ jobs:
       - name: List files
         run: ls -l  
       - name: Deploy app build to S3 bucket
-        run: aws s3 sync ./client/build/ s3://paste-it --delete
+        run: aws s3 sync ./client/build/ s3://janrapacz.eu --delete
