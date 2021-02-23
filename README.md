@@ -9,8 +9,8 @@ It developed this app, while I was learning React. It is pretty much the summary
 
 * [React](https://reactjs.org/) - The Front-end framework used
 * [Express](https://expressjs.com/) - API
-* [Redux](https://redux.js.org/) - Global state menagment
-* [JWT](https://jwt.io/) - Authentication
+* [Typescript](https://www.typescriptlang.org/) - Used in API code
+* [AWS](https://aws.amazon.com/?nc2=h_lg) - File hosting and deployment.
 
 ## Deployment
 This app is live here:
